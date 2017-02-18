@@ -513,9 +513,10 @@ internal extension SKPhotoBrowser {
     }
     
     func deleteButtonPressed(_ sender: UIButton) {
-        delegate?.removePhoto?(self, index: currentPageIndex) { [weak self] in
-            self?.deleteImage()
-        }
+        self.delegate?.longGesturePhoto!(photos[currentPageIndex].underlyingImage)
+//        delegate?.removePhoto?(self, index: currentPageIndex) { [weak self] in
+//            self?.deleteImage()
+//        }
     }
     
     func closeButtonPressed(_ sender: UIButton) {
@@ -584,7 +585,7 @@ private extension SKPhotoBrowser {
         // Hung Le
         if SKPhotoBrowserOptions.enableLongPress {
             longGesture = UILongPressGestureRecognizer(target: self, action: #selector(SKPhotoBrowser.longGestureRecognized(_:)))
-//            view.addGestureRecognizer(longGesture)
+            view.addGestureRecognizer(longGesture)
         }
         
     }
