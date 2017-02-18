@@ -11,7 +11,7 @@ import UIKit
 public struct SKPhotoBrowserOptions {
     public static var displayStatusbar: Bool = false
     
-    public static var displayAction: Bool = true
+    public static var displayAction: Bool = false
     public static var shareExtraCaption: String? = nil
     public static var actionButtonTitles: [String]?
     
@@ -31,6 +31,11 @@ public struct SKPhotoBrowserOptions {
     public static var enableSingleTapDismiss: Bool = false
     
     public static var backgroundColor: UIColor = .black
+    
+    // Hung Le
+    public static var enableLongPress: Bool = true
+    public static var animationFadeOut: Bool = false
+    public static var positionButton: CGFloat? = 0
 }
 
 public struct SKCaptionOptions {

@@ -76,5 +76,10 @@ import Foundation
      Tells the delegate that the controls view toggled visibility
      */
     @objc optional func controlsVisibilityToggled(hidden: Bool) -> Void
+    
+    /**
+     Tells the delegate long press in view
+     */
+    @objc optional func longGesturePhoto(_ photo: UIImage) -> Void
 }
 

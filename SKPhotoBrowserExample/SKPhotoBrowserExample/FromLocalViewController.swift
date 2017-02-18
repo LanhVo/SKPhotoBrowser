@@ -18,8 +18,10 @@ class FromLocalViewController: UIViewController, UICollectionViewDataSource, UIC
         super.viewDidLoad()
 
         // Static setup
-        SKPhotoBrowserOptions.displayAction = false
-        SKPhotoBrowserOptions.displayStatusbar = true
+        SKPhotoBrowserOptions.displayStatusbar = false
+        SKPhotoBrowserOptions.displayBackAndForwardButton = false
+        SKPhotoBrowserOptions.positionButton = 5
+        SKPhotoBrowserOptions.displayDeleteButton = true
 
         setupTestData()
         setupCollectionView()
@@ -116,6 +118,10 @@ extension FromLocalViewController {
     
     func viewForPhoto(_ browser: SKPhotoBrowser, index: Int) -> UIView? {
         return collectionView.cellForItem(at: IndexPath(item: index, section: 0))
+    }
+    
+    func longGesturePhoto(_ photo: UIImage) {
+        print(photo)
     }
 }
 

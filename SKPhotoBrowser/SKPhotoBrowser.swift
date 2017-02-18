@@ -23,6 +23,9 @@ open class SKPhotoBrowser: UIViewController {
     fileprivate var activityViewController: UIActivityViewController!
     open var activityItemProvider: UIActivityItemProvider? = nil
     fileprivate var panGesture: UIPanGestureRecognizer!
+    
+    // Hung Le
+    fileprivate var longGesture: UILongPressGestureRecognizer!
 
     // tool for controls
     fileprivate var applicationWindow: UIWindow!
@@ -414,7 +417,8 @@ internal extension SKPhotoBrowser {
         if UIInterfaceOrientationIsLandscape(currentOrientation) {
             height = 32
         }
-        return CGRect(x: 0, y: view.bounds.size.height - height, width: view.bounds.size.width, height: height)
+        // Hung Le
+        return CGRect(x: view.bounds.size.width / 4, y: SKPhotoBrowserOptions.positionButton! > CGFloat(0) ? SKPhotoBrowserOptions.positionButton! : view.bounds.size.height - height, width: view.bounds.size.width / 2, height: height)
     }
     
     func frameForToolbarHideAtOrientation() -> CGRect {
@@ -423,7 +427,8 @@ internal extension SKPhotoBrowser {
         if UIInterfaceOrientationIsLandscape(currentOrientation) {
             height = 32
         }
-        return CGRect(x: 0, y: view.bounds.size.height + height, width: view.bounds.size.width, height: height)
+        // Hung Le
+        return CGRect(x: 0, y: SKPhotoBrowserOptions.positionButton! > CGFloat(0) ? SKPhotoBrowserOptions.positionButton! : view.bounds.size.height + height, width: view.bounds.size.width, height: height)
     }
     
     func frameForPageAtIndex(_ index: Int) -> CGRect {
@@ -438,6 +443,13 @@ internal extension SKPhotoBrowser {
 // MARK: - Internal Function For Button Pressed, UIGesture Control
 
 internal extension SKPhotoBrowser {
+    // Hung Le
+    func longGestureRecognized(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            self.delegate?.longGesturePhoto!(photos[currentPageIndex].underlyingImage)
+        }
+    }
+    
     func panGestureRecognized(_ sender: UIPanGestureRecognizer) {
         guard let zoomingScrollView: SKZoomingScrollView = pagingScrollView.pageDisplayedAtIndex(currentPageIndex) else {
             return
@@ -565,6 +577,13 @@ private extension SKPhotoBrowser {
         if !SKPhotoBrowserOptions.disableVerticalSwipe {
             view.addGestureRecognizer(panGesture)
         }
+        
+        // Hung Le
+        if SKPhotoBrowserOptions.enableLongPress {
+            longGesture = UILongPressGestureRecognizer(target: self, action: #selector(SKPhotoBrowser.longGestureRecognized(_:)))
+//            view.addGestureRecognizer(longGesture)
+        }
+        
     }
     
     func configureCloseButton() {
@@ -595,15 +614,28 @@ private extension SKPhotoBrowser {
             animations: { () -> Void in
                 let alpha: CGFloat = hidden ? 0.0 : 1.0
                 self.toolbar.alpha = alpha
-                self.toolbar.frame = hidden ? self.frameForToolbarHideAtOrientation() : self.frameForToolbarAtOrientation()
+                // Hung Le
+                UIApplication.shared.isStatusBarHidden = hidden
+                if SKPhotoBrowserOptions.animationFadeOut {
+                    self.toolbar.frame = hidden ? self.frameForToolbarHideAtOrientation() : self.frameForToolbarAtOrientation()
+                }
+                
                 
                 if SKPhotoBrowserOptions.displayCloseButton {
                     self.closeButton.alpha = alpha
-                    self.closeButton.frame = hidden ? self.closeButton.hideFrame : self.closeButton.showFrame
+                    // Hung Le
+                    if SKPhotoBrowserOptions.animationFadeOut {
+                        self.closeButton.frame = hidden ? self.closeButton.hideFrame : self.closeButton.showFrame
+                    }
+                    
                 }
                 if SKPhotoBrowserOptions.displayDeleteButton {
                     self.deleteButton.alpha = alpha
-                    self.deleteButton.frame = hidden ? self.deleteButton.hideFrame : self.deleteButton.showFrame
+                    // Hung Le
+                    if SKPhotoBrowserOptions.animationFadeOut {
+                        self.deleteButton.frame = hidden ? self.deleteButton.hideFrame : self.deleteButton.showFrame
+                    }
+                    
                 }
                 captionViews.forEach { $0.alpha = alpha }
             },
