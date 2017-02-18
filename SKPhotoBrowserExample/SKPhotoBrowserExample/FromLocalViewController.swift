@@ -18,7 +18,6 @@ class FromLocalViewController: UIViewController, UICollectionViewDataSource, UIC
         super.viewDidLoad()
 
         // Static setup
-        SKPhotoBrowserOptions.displayStatusbar = false
         SKPhotoBrowserOptions.displayBackAndForwardButton = false
         SKPhotoBrowserOptions.positionButton = 5
         SKPhotoBrowserOptions.displayDeleteButton = true

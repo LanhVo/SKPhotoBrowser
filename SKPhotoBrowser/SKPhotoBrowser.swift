@@ -615,7 +615,9 @@ private extension SKPhotoBrowser {
                 let alpha: CGFloat = hidden ? 0.0 : 1.0
                 self.toolbar.alpha = alpha
                 // Hung Le
-                UIApplication.shared.isStatusBarHidden = hidden
+                if SKPhotoBrowserOptions.displayStatusbar {
+                    UIApplication.shared.isStatusBarHidden = hidden
+                }
                 if SKPhotoBrowserOptions.animationFadeOut {
                     self.toolbar.frame = hidden ? self.frameForToolbarHideAtOrientation() : self.frameForToolbarAtOrientation()
                 }
