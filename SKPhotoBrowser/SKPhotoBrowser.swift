@@ -148,6 +148,9 @@ open class SKPhotoBrowser: UIViewController {
         delegate?.didShowPhotoAtIndex?(currentPageIndex)
         
         isPerformingLayout = false
+        
+        // Hung Le
+        UIApplication.shared.isStatusBarHidden = !SKPhotoBrowserOptions.displayStatusbar
     }
     
     override open func viewDidAppear(_ animated: Bool) {
