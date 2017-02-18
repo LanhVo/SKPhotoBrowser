@@ -156,11 +156,11 @@ open class SKPhotoBrowser: UIViewController {
 
     }
     
-    override open var prefersStatusBarHidden: Bool {
-        get {
-            return !SKPhotoBrowserOptions.displayStatusbar
-        }
-    }
+//    override open var prefersStatusBarHidden: Bool {
+//        get {
+//            return !SKPhotoBrowserOptions.displayStatusbar
+//        }
+//    }
     
     // MARK: - Notification
     open func handleSKPhotoLoadingDidEndNotification(_ notification: Notification) {
@@ -615,9 +615,7 @@ private extension SKPhotoBrowser {
                 let alpha: CGFloat = hidden ? 0.0 : 1.0
                 self.toolbar.alpha = alpha
                 // Hung Le
-                if SKPhotoBrowserOptions.displayStatusbar {
-                    UIApplication.shared.isStatusBarHidden = hidden
-                }
+                
                 if SKPhotoBrowserOptions.animationFadeOut {
                     self.toolbar.frame = hidden ? self.frameForToolbarHideAtOrientation() : self.frameForToolbarAtOrientation()
                 }
@@ -638,6 +636,9 @@ private extension SKPhotoBrowser {
                         self.deleteButton.frame = hidden ? self.deleteButton.hideFrame : self.deleteButton.showFrame
                     }
                     
+                }
+                if SKPhotoBrowserOptions.displayStatusbar {
+                    UIApplication.shared.isStatusBarHidden = hidden
                 }
                 captionViews.forEach { $0.alpha = alpha }
             },
