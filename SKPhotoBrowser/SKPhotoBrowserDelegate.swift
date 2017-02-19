@@ -44,7 +44,7 @@ import Foundation
      - Parameter buttonIndex: the index of the pressed button
      - Parameter photoIndex: the index of the current photo
      */
-    @objc optional func didDismissActionSheetWithButtonIndex(_ buttonIndex: Int, photoIndex: Int)
+    @objc optional func didDismissActionSheetWithButtonIndex(_ buttonIndex: Int, photoIndex: Int, photo: UIImage)
     
     /**
      Tells the delegate that the browser did scroll to index

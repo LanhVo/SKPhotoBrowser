@@ -22,6 +22,7 @@ class FromLocalViewController: UIViewController, UICollectionViewDataSource, UIC
         SKPhotoBrowserOptions.displayBackAndForwardButton = false
         SKPhotoBrowserOptions.positionButton = 5
         SKPhotoBrowserOptions.displayDeleteButton = true
+        SKPhotoBrowserOptions.actionButtonTitles = ["Save Photo"]
 
         setupTestData()
         setupCollectionView()
@@ -102,14 +103,16 @@ extension FromLocalViewController {
     
     func willShowActionSheet(_ photoIndex: Int) {
         // do some handle if you need
+        print(photoIndex)
     }
     
     func didDismissAtPageIndex(_ index: Int) {
         collectionView.cellForItem(at: IndexPath(item: index, section: 0))?.isHidden = false
     }
     
-    func didDismissActionSheetWithButtonIndex(_ buttonIndex: Int, photoIndex: Int) {
+    func didDismissActionSheetWithButtonIndex(_ buttonIndex: Int, photoIndex: Int, photo: UIImage) {
         // handle dismissing custom actions
+        print("save")
     }
     
     func removePhoto(index: Int, reload: (() -> Void)) {
@@ -118,10 +121,6 @@ extension FromLocalViewController {
     
     func viewForPhoto(_ browser: SKPhotoBrowser, index: Int) -> UIView? {
         return collectionView.cellForItem(at: IndexPath(item: index, section: 0))
-    }
-    
-    func longGesturePhoto(_ photo: UIImage) {
-        print(photo)
     }
 }
 

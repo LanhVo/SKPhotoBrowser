@@ -449,7 +449,8 @@ internal extension SKPhotoBrowser {
     // Hung Le
     func longGestureRecognized(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
-            self.delegate?.longGesturePhoto!(photos[currentPageIndex].underlyingImage)
+//            self.delegate?.longGesturePhoto!(photos[currentPageIndex].underlyingImage)
+            self.actionButtonPressed(ignoreAndShare: true)
         }
     }
     
@@ -513,7 +514,8 @@ internal extension SKPhotoBrowser {
     }
     
     func deleteButtonPressed(_ sender: UIButton) {
-        self.delegate?.longGesturePhoto!(photos[currentPageIndex].underlyingImage)
+//        self.delegate?.longGesturePhoto!(photos[currentPageIndex].underlyingImage)
+        self.actionButtonPressed(ignoreAndShare: true)
 //        delegate?.removePhoto?(self, index: currentPageIndex) { [weak self] in
 //            self?.deleteImage()
 //        }
@@ -536,7 +538,7 @@ internal extension SKPhotoBrowser {
             }))
             for idx in titles.indices {
                 actionSheetController.addAction(UIAlertAction(title: titles[idx], style: .default, handler: { (action) -> Void in
-                    self.delegate?.didDismissActionSheetWithButtonIndex?(idx, photoIndex: self.currentPageIndex)
+                    self.delegate?.didDismissActionSheetWithButtonIndex?(idx, photoIndex: self.currentPageIndex, photo: self.photos[self.currentPageIndex].underlyingImage)
                 }))
             }
             
