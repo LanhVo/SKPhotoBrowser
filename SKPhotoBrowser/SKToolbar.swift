@@ -56,11 +56,15 @@ class SKToolbar: UIToolbar {
 
 private extension SKToolbar {
     func setupApperance() {
-        backgroundColor = .clear
+//        backgroundColor = .clear
         clipsToBounds = true
         isTranslucent = true
         setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
-        
+        // Hung Le
+        let gradient:CAGradientLayer = CAGradientLayer()
+        gradient.frame.size = self.frame.size
+        gradient.colors = [UIColor.black.withAlphaComponent(0.6).cgColor,UIColor.clear.cgColor] //Or any colors
+        self.layer.addSublayer(gradient)
         // toolbar
         if !SKPhotoBrowserOptions.displayToolbar {
             isHidden = true
@@ -109,8 +113,10 @@ private extension SKToolbar {
         toolCounterLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 95, height: 40))
         toolCounterLabel.textAlignment = .center
         toolCounterLabel.backgroundColor = .clear
-        toolCounterLabel.shadowColor = .black
-        toolCounterLabel.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        // Hung Le
+//        toolCounterLabel.shadowColor = UIColor.black
+//        toolCounterLabel.layer.shadowOpacity = 0.7
+//        toolCounterLabel.shadowOffset = CGSize(width: 0.0, height: 1)
         toolCounterLabel.font = SKToolbarOptions.font
         toolCounterLabel.textColor = SKToolbarOptions.textColor
         toolCounterButton = UIBarButtonItem(customView: toolCounterLabel)

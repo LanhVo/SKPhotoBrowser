@@ -117,11 +117,15 @@ open class SKPhotoBrowser: UIViewController {
         super.viewDidLoad()
         
         configureAppearance()
+        // Hung Le
+        configureToolbar()
         configureCloseButton()
         configureDeleteButton()
-        configureToolbar()
+        
         
         animator.willPresent(self)
+        // Hung Le
+        self.hideControls()
     }
 
     
@@ -416,12 +420,12 @@ internal extension SKPhotoBrowser {
 internal extension SKPhotoBrowser {
     func frameForToolbarAtOrientation() -> CGRect {
         let currentOrientation = UIApplication.shared.statusBarOrientation
-        var height: CGFloat = navigationController?.navigationBar.frame.size.height ?? 44
+        var height: CGFloat = navigationController?.navigationBar.frame.size.height ?? 55
         if UIInterfaceOrientationIsLandscape(currentOrientation) {
             height = 32
         }
         // Hung Le
-        return CGRect(x: view.bounds.size.width / 4, y: SKPhotoBrowserOptions.positionButton! > CGFloat(0) ? SKPhotoBrowserOptions.positionButton! : view.bounds.size.height - height, width: view.bounds.size.width / 2, height: height)
+        return CGRect(x: 0, y: 0, width: view.bounds.size.width, height: height) //SKPhotoBrowserOptions.positionButton! > CGFloat(0) ? SKPhotoBrowserOptions.positionButton! : view.bounds.size.height - height
     }
     
     func frameForToolbarHideAtOrientation() -> CGRect {
@@ -596,14 +600,16 @@ private extension SKPhotoBrowser {
         closeButton = SKCloseButton(frame: .zero)
         closeButton.addTarget(self, action: #selector(closeButtonPressed(_:)), for: .touchUpInside)
         closeButton.isHidden = !SKPhotoBrowserOptions.displayCloseButton
-        view.addSubview(closeButton)
+//        view.addSubview(closeButton)
+        view.insertSubview(closeButton, aboveSubview: toolbar)
     }
     
     func configureDeleteButton() {
         deleteButton = SKDeleteButton(frame: .zero)
         deleteButton.addTarget(self, action: #selector(deleteButtonPressed(_:)), for: .touchUpInside)
         deleteButton.isHidden = !SKPhotoBrowserOptions.displayDeleteButton
-        view.addSubview(deleteButton)
+//        view.addSubview(deleteButton)
+        view.insertSubview(deleteButton, aboveSubview: toolbar)
     }
     
     func configureToolbar() {
