@@ -122,10 +122,7 @@ open class SKPhotoBrowser: UIViewController {
         configureCloseButton()
         configureDeleteButton()
         
-        
         animator.willPresent(self)
-        // Hung Le
-        self.hideControls()
     }
 
     
