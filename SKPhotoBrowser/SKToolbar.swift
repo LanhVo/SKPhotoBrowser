@@ -44,7 +44,8 @@ class SKToolbar: UIToolbar {
         guard let browser = browser else { return }
         
         if browser.numberOfPhotos > 1 {
-            toolCounterLabel.text = "\(currentPageIndex + 1) / \(browser.numberOfPhotos)"
+            // Hung Le
+            toolCounterLabel.text = "\(currentPageIndex + 1)/\(browser.numberOfPhotos)"
         } else {
             toolCounterLabel.text = nil
         }
